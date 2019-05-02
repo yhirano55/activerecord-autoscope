@@ -1,4 +1,6 @@
-require "activerecord/autoscope/version"
+# frozen_string_literal: true
+
+require 'activerecord/autoscope/version'
 
 module Activerecord
   module Autoscope
