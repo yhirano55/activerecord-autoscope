@@ -1,8 +1,6 @@
-# Activerecord::Autoscope
+# ActiveRecord::AutoScope
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/activerecord/autoscope`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This gem automatically defines scope methods which we often implement
 
 ## Installation
 
@@ -22,17 +20,56 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+This gem automatically defines these scope methods **without configuration**
 
-## Development
+These APIs are similar as [ransack](https://github.com/activerecord-hackery/ransack/)'s one, but these scope methods are simple implementations.
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Please check its [implementation](https://github.com/yhirano55/activerecord-autoscope/blob/master/lib/activerecord/auto_scope/scope_methods.rb) if you're interested in.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+| Type | Predicate | Description | Notes |
+| ---- | --------- | ----------- | ----- |
+| all | `*_eq` | equal | |
+| all | `*_not_eq` | not equal | |
+| all | `*_is` | equal | |
+| all | `*_is_not` | not equal | |
+| all | `*_null` | is null | |
+| all | `*_not_null` | is not null | |
+| all | `*_present` | not null and not empty | |
+| all | `*_blank` | null or empty | |
+| `:integer` | `*_gt` | greater than | |
+| `:integer` | `*_gteq` | greater than or equal | |
+| `:integer` | `*_lt` | less than | |
+| `:integer` | `*_lteq` | less than or equal | |
+| `:string`, `:text` | `*_start` | starts with | SQL: `col LIKE 'value%'` |
+| `:string`, `:text` | `*_not_start` | does not start with | |
+| `:string`, `:text` | `*_end` | ends with | SQL: `col LIKE '%value'` |
+| `:string`, `:text` | `*_not_end` | does not end with | |
+| `:string`, `:text` | `*_cont` | contains | SQL: `col LIKE '%value%'` |
+| `:string`, `:text` | `*_not_cont` | does not contain | |
+| `:date`, `:datetime` | `*_after` | after | |
+| `:date`, `:datetime` | `*_on_or_after` | on or after | |
+| `:date`, `:datetime` | `*_before` | before | |
+| `:date`, `:datetime` | `*_on_or_before` | on or before | |
+| `:date`, `:datetime` | `*_between` | between | |
+| `:boolean` | `*` | true | SQL: `col IS true` |
+| `:boolean` | `not_*` | false | |
 
-## Contributing
+### Manually settings
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/yhirano55/activerecord-autoscope.
+If you want to define these scope methods manually, you have to add this initializer file:
+
+```ruby
+# config/initializers/activerecord_autoscope.rb
+ActiveRecord::AutoScope.config.auto_define_scopes = false
+```
+
+Then you have to enable inside each models:
+
+```ruby
+class User < ApplicationRecord
+  enable_auto_scopes!
+end
+```
 
 ## License
 
