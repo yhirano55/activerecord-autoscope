@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe Activerecord::Autoscope do
+RSpec.describe ActiveRecord::AutoScope do
   it 'has a version number' do
-    expect(Activerecord::Autoscope::VERSION).not_to be nil
-  end
-
-  it 'does something useful' do
-    expect(false).to eq(true)
+    expect(ActiveRecord::AutoScope::VERSION).not_to be nil
   end
 end
