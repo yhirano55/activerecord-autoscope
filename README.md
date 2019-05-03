@@ -36,6 +36,8 @@ Please check its [implementation](https://github.com/yhirano55/activerecord-auto
 | All | `#{col}_not_null` | is not null | |
 | All | `#{col}_present` | not null and not empty | SQL: `col IS NOT NULL AND col != ''` |
 | All | `#{col}_blank` | null or empty | SQL: `col IS NULL OR col = ''` |
+| All | `#{col}_asc` | ascending order | |
+| All | `#{col}_desc` | descending order | |
 | `:integer` | `#{col}_gt(val)` | greater than | |
 | `:integer` | `#{col}_gteq(val)` | greater than or equal | |
 | `:integer` | `#{col}_lt(val)` | less than | |

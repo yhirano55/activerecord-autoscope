@@ -16,6 +16,8 @@ module ActiveRecord
           scope("#{attr_name}_not_null", -> { where.not(attr_name => nil) })
           scope("#{attr_name}_present", -> { where("#{table_name}.#{attr_name} IS NOT NULL AND #{table_name}.#{attr_name} != ''") })
           scope("#{attr_name}_blank", -> { where("#{table_name}.#{attr_name} IS NULL OR #{table_name}.#{attr_name} = ''") })
+          scope("#{attr_name}_asc", -> { order(attr_name => :asc) })
+          scope("#{attr_name}_desc", -> { order(attr_name => :desc) })
 
           case column.type
           when :integer
