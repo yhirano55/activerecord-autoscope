@@ -58,7 +58,7 @@ Please check its [implementation](https://github.com/yhirano55/activerecord-auto
 
 ### Manually settings
 
-If you want to define these scope methods manually, you have to add this initializer file:
+This gem provides automatically each scopes with `method_missing` If you don't any configuration, you can use it. But if you want to define these scope methods manually, you have to add this initializer file:
 
 ```ruby
 # config/initializers/activerecord_autoscope.rb
@@ -75,4 +75,4 @@ end
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+[MIT License](https://opensource.org/licenses/MIT)
