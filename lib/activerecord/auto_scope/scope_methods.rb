@@ -4,6 +4,8 @@ module ActiveRecord
   module AutoScope
     module ScopeMethods # :nodoc:
       def enable_auto_scopes!
+        return if abstract_class?
+
         columns.each do |column|
           attr_name = column.name
           table_name = column.table_name

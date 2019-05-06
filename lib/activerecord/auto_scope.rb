@@ -15,6 +15,14 @@ end
 
 module ActiveRecord
   module AutoScope # :nodoc:
+    def self.tracer
+      @tracer ||= TracePoint.trace(:end) do |event|
+        next unless event.self.respond_to?(:enable_auto_scopes!)
+
+        event.self.enable_auto_scopes!
+      end
+    end
+
     def self.configure
       yield config
     end
