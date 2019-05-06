@@ -6,9 +6,17 @@ module ActiveRecord
       def enable_auto_scopes!
         return if abstract_class?
 
+        already_defined_scope = false
+
         columns.each do |column|
           attr_name = column.name
           table_name = column.table_name
+
+          # NOTE: if it has already defined methods, return false
+          if respond_to?("#{attr_name}_eq") && respond_to?("#{attr_name}_not_eq")
+            already_defined_scope = true
+            break
+          end
 
           scope("#{attr_name}_eq", ->(value) { where(attr_name => value) })
           scope("#{attr_name}_not_eq", ->(value) { where.not(attr_name => value) })
@@ -45,6 +53,8 @@ module ActiveRecord
             scope("not_#{attr_name}", -> { where(attr_name => false) })
           end
         end
+
+        !already_defined_scope
       end
     end
   end

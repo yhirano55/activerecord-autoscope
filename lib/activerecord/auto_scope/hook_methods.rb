@@ -11,8 +11,7 @@ module ActiveRecord
         private
 
         def method_missing(method_name, *args, &block)
-          if enable_auto_define_scopes?
-            enable_auto_scopes!
+          if enable_auto_define_scopes? && enable_auto_scopes!
             public_send(method_name, *args, &block)
           else
             super
